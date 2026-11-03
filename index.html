@@ -11,12 +11,12 @@
       class="row-span-2 bg-emerald-400 flex flex-col justify-between py-4 px-5"
     >
       <h1 class="text-2xl font-bold text-center">projeto teste calculadora</h1>
-      <form class="w-full">
-        <div class="w-full flex flex-col mb-2">
+      <form id="investment-form" class="w-full">
+        <div class="w-full flex flex-col mb-2 h-[4.25rem]">
           <label for="starting-amount" class="text-black text-lg font-bold"
             >Investimentos Iniciais</label
           >
-          <div class="w-full flex">
+          <div class="w-full flex error">
             <input
               value="%"
               type="text"
@@ -28,10 +28,13 @@
               type="text"
               id="starting-amount"
               placeholder="0.00"
+              required
+              name="starting-amount"
             />
           </div>
+          <p class="text-red-500">apenas números maiores que 0 (zero)</p>
         </div>
-        <div class="w-full flex flex-col mb-2">
+        <div class="w-full flex flex-col mb-2 h-[4.25rem]">
           <label
             for="additional-contributions"
             class="text-black text-lg font-bold"
@@ -52,7 +55,7 @@
             />
           </div>
         </div>
-        <div class="w-full flex flex-col mb-2">
+        <div class="w-full flex flex-col mb-2 h-[4.25rem]">
           <label for="time-amount" class="text-black text-lg font-bold"
             >Prazo</label
           >
@@ -62,6 +65,7 @@
               type="text"
               id="time-amount"
               placeholder="0"
+              required
             />
             <select
               id="time-amount-period"
@@ -72,7 +76,7 @@
             </select>
           </div>
         </div>
-        <div class="w-full flex flex-col mb-2">
+        <div class="w-full flex flex-col mb-2 h-[4.25rem]">
           <label for="return-rata" class="text-black text-lg font-bold"
             >Rentabilidade</label
           >
@@ -88,6 +92,7 @@
               type="text"
               id="return-rata"
               placeholder="0"
+              required
             />
             <select
               id="evolution-period"
@@ -97,30 +102,36 @@
               <option value="year" class="bg-emerald-900">anual</option>
             </select>
           </div>
-          <div class="w-full flex flex-col mb-2">
-            <label for="tax-rata" class="text-black text-lg font-bold"
-              >Impostos Sobre o Lucro</label
-            >
-            <div class="w-full flex">
-              <input
-                value="%"
-                type="text"
-                class="bg-emerald-600 w-1/6 text-center rounded-l-lg"
-                disabled
-              />
-              <input
-                class="bg-white w-5/6 rounded-r-lg pl-2"
-                type="text"
-                id="tax-rata"
-                placeholder="0"
-              />
-            </div>
+        </div>
+        <div class="w-full flex flex-col mb-2 h-[4.25rem]">
+          <label for="tax-rata" class="text-black text-lg font-bold"
+            >Impostos Sobre o Lucro</label
+          >
+          <div class="w-full flex">
+            <input
+              value="%"
+              type="text"
+              class="bg-emerald-600 w-1/6 text-center rounded-l-lg"
+              disabled
+            />
+            <input
+              class="bg-white w-5/6 rounded-r-lg pl-2"
+              type="text"
+              id="tax-rata"
+              placeholder="0"
+              required
+            />
           </div>
         </div>
       </form>
 
       <div class="flex px-12 gap-3 my-3 w-full h-10">
-        <button class="w-1/2 bg-emerald-700 rounded-lg hover:bg-emerald-500">
+        <button
+          type="submit"
+          form="investment-form"
+          id="calculate-results"
+          class="w-1/2 bg-emerald-700 rounded-lg hover:bg-emerald-500"
+        >
           calcular
         </button>
         <button class="w-1/2 rounded-lg hover:bg-emerald-500">limpar</button>
@@ -130,5 +141,6 @@
     <main>
       <p>Resultados</p>
     </main>
+    <script type="module" src="main.js"></script>
   </body>
 </html>

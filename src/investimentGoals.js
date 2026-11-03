@@ -2,7 +2,7 @@ function convertToMonthlyReturnRata(yearReturnRata) {
   return yearReturnRata ** (1 / 12);
 }
 
-function generataReturnArray(
+export function generataReturnArray(
   startingAmount = 0,
   timeHorizon = 0,
   timePeriod = "monthly",

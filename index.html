@@ -16,7 +16,7 @@
           <label for="starting-amount" class="text-black text-lg font-bold"
             >Investimentos Iniciais</label
           >
-          <div class="w-full flex error">
+          <div class="w-full flex">
             <input
               value="%"
               type="text"
@@ -32,7 +32,7 @@
               name="starting-amount"
             />
           </div>
-          <p class="text-red-500">apenas números maiores que 0 (zero)</p>
+          <!-- <p class="text-red-500">apenas números maiores que 0 (zero)</p> -->
         </div>
         <div class="w-full flex flex-col mb-2 h-[4.25rem]">
           <label
@@ -52,6 +52,7 @@
               type="text"
               id="additional-contribution"
               placeholder="0.00"
+              name="additional-contribution"
             />
           </div>
         </div>
@@ -66,6 +67,7 @@
               id="time-amount"
               placeholder="0"
               required
+              name="time-amount"
             />
             <select
               id="time-amount-period"
@@ -93,6 +95,7 @@
               id="return-rata"
               placeholder="0"
               required
+              name="return-rata"
             />
             <select
               id="evolution-period"
@@ -120,6 +123,7 @@
               id="tax-rata"
               placeholder="0"
               required
+              name="tax-rata"
             />
           </div>
         </div>
@@ -134,7 +138,9 @@
         >
           calcular
         </button>
-        <button class="w-1/2 rounded-lg hover:bg-emerald-500">limpar</button>
+        <button class="w-1/2 rounded-lg hover:bg-emerald-500" id="clearButton">
+          limpar
+        </button>
       </div>
     </aside>
 

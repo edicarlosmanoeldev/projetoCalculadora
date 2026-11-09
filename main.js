@@ -29,6 +29,24 @@ function renderProgression(e) {
 
   console.log(returnsArray);
 }
+
+function validarInput(evt) {
+  if (evt.target.value === "") {
+    return;
+  }
+
+  const inputValue = evt.target.value.replace(",", ".");
+  if (isNaN(inputValue) || Number(inputValue) <= 0) {
+    console.log("erro funcionado");
+  }
+}
+5;
+
+for (const formElement of form) {
+  if (formElement.tagName === "INPUT" && formElement.hasAttribute("name")) {
+    formElement.addEventListener("blur", validarInput);
+  }
+}
 //  tenho outra forma alternada para evitar o vento de submit
 form.addEventListener("submit", renderProgression);
 // buttonClick.addEventListener("click", renderProgression);

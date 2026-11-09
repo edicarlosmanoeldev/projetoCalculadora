@@ -17,6 +17,7 @@
             >Investimentos Iniciais</label
           >
           <div class="w-full flex">
+          <div class="w-full flex">
             <input
               value="%"
               type="text"
@@ -32,6 +33,7 @@
               required
             />
           </div>
+          <!-- <p class="text-red-500">apenas números maiores que 0 (zero)</p> -->
           <!-- <p class="text-red-500">apenas números maiores que 0 (zero)</p> -->
         </div>
         <div class="w-full flex flex-col mb-2 h-[4.25rem]">
@@ -53,6 +55,7 @@
               id="additional-contribution"
               placeholder="0.00"
               name="additional-contribution"
+              name="additional-contribution"
             />
           </div>
         </div>
@@ -67,6 +70,7 @@
               id="time-amount"
               placeholder="0"
               required
+              name="time-amount"
               name=" time-amount"
             />
             <select
@@ -96,6 +100,7 @@
               placeholder="0"
               required
               name="return-rata"
+              name="return-rata"
             />
             <select
               id="evolution-period"
@@ -124,6 +129,7 @@
               placeholder="0"
               required
               name="tax-rata"
+              name="tax-rata"
             />
           </div>
         </div>
@@ -138,7 +144,9 @@
         >
           calcular
         </button>
-        <button class="w-1/2 rounded-lg hover:bg-emerald-500">limpar</button>
+        <button class="w-1/2 rounded-lg hover:bg-emerald-500" id="clearButton">
+          limpar
+        </button>
       </div>
     </aside>
 

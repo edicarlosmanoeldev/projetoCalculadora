@@ -46,11 +46,11 @@ export function generataReturnArray(
       monthlyContribuition;
 
     const interestReturns =
-      returnArray[timeReference - 1].totalAmount * finalReturnRata;
+      returnArray[timeReference - 1].totalAmount * (finalReturnRata - 1);
     const investedAmount =
       startingAmount + monthlyContribuition * timeReference;
 
-    const totalInterestReturns = investedAmount - totalAmount;
+    const totalInterestReturns = totalAmount - investedAmount;
 
     returnArray.push({
       investedAmount: investedAmount,

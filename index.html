@@ -74,7 +74,8 @@
               id="time-amount-period"
               class="bg-white w-1/3 text-center border-l-1 border-emerald-200 rounded-r-lg hover:bg-emerald-900 hover:text-white"
             >
-              <option value="month" class="bg-emerald-900">mesal</option>
+              <option value="monthly" class="bg-emerald-900">mesal</option>
+              <option value="yearly" class="bg-emerald-900">anual</option>
             </select>
           </div>
         </div>
@@ -90,7 +91,7 @@
               disabled
             />
             <input
-              class="bg-white w-1/2 pl-2"
+              class="bg-white w-4/6 pl-2"
               type="text"
               id="return-rata"
               placeholder="0"
@@ -101,7 +102,8 @@
               id="evolution-period"
               class="bg-white w-1/3 text-center border-l-1 border-emerald-200 rounded-r-lg hover:bg-emerald-900 hover:text-white"
             >
-              <option value="month" class="bg-emerald-900">mesal</option>
+              <option value="monthly" class="bg-emerald-900">mesal</option>
+              <option value="yearly" class="bg-emerald-900">anual</option>
             </select>
           </div>
         </div>
@@ -143,8 +145,17 @@
       </div>
     </aside>
 
-    <main>
-      <p>Resultados</p>
+    <main class="h-full">
+      <section id="charts-containers">
+        <div class="h-[36dvh]">
+          <p>parte final</p>
+          <canvas id="final-money-destribution"> </canvas>
+        </div>
+        <div class="h-[50dvh]">
+          <p>progressão</p>
+          <canvas id="progression"> </canvas>
+        </div>
+      </section>
     </main>
     <script type="module" src="main.js"></script>
   </body>

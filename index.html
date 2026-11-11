@@ -6,7 +6,7 @@
     <title>projetocalculadora</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="grid grid-cols-3 grid-rows-2 h-[100dvh]">
+  <body class="h-[100dvh] grid grid-cols-3 grid-rows-2">
     <aside
       class="row-span-2 bg-emerald-400 flex flex-col justify-between py-4 px-5"
     >
@@ -145,14 +145,14 @@
       </div>
     </aside>
 
-    <main class="h-full">
-      <section id="charts-containers">
-        <div class="h-[36dvh]">
-          <p>parte final</p>
+    <main class="row-span-2 col-span-2">
+      <section id="charts-containers" class="h-full">
+        <div class="h-[36%] flex flex-col items-center pb-10">
+          <p class="text-lg font-bold">parte final</p>
           <canvas id="final-money-destribution"> </canvas>
         </div>
-        <div class="h-[50dvh]">
-          <p>progressão</p>
+        <div class="h-[50%] flex flex-col items-center">
+          <p class="text-lg font-bold">progressão</p>
           <canvas id="progression"> </canvas>
         </div>
       </section>

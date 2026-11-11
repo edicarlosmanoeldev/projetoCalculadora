@@ -1,8 +1,13 @@
 import { generataReturnArray } from "./src/investimentGoals.js";
+import { Chart } from "chart.js/auto";
 // const buttonClick = document.getElementById("calculate-results");
 const form = document.getElementById("investment-form");
 const clearButton = document.getElementById("clearButton");
 
+const finalMoneyDestributio = document.getElementById(
+  "finalmonoy-destribution",
+);
+const progression = document.getElementById("pregression");
 function renderProgression(e) {
   e.preventDefault();
 
@@ -40,8 +45,30 @@ function renderProgression(e) {
     returnRata,
     returnRataPeriod,
   );
+  const finalMoneyreturn = returnsArray[returnsArray.length - 1];
+  // console.log(finalMoneyreturn);
 
-  console.log(returnsArray);
+  new Chart(finalMoneyDestributio, {
+    type: "doughnut",
+    data: {
+      labels: ["Total Investido", "Rendimento", "Imposto"],
+      datasets: [
+        {
+          data: [
+            finalMoneyreturn.investedAmount,
+            finalMoneyreturn.totalInterestReturns * (1 - taxRata / 12),
+            finalMoneyreturn.totalInterestReturns * (taxRata / 12),
+          ],
+          backgroundColor: [
+            "rgb(255, 99, 132)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 205, 86)",
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
 }
 
 function clearInput() {

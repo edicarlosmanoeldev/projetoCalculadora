@@ -174,7 +174,7 @@ for (let formElement of form) {
   }
 }
 //  tenho outra forma alternada para evitar o vento de submit
-form.addEventListener("submit", renderProgression);
+// form.addEventListener("submit", renderProgression);
 
 // buttonClick.addEventListener("click", renderProgression);
 clearButton.addEventListener("click", clearInput);

@@ -1,20 +1,24 @@
 import { generataReturnArray } from "./src/investimentGoals.js";
 import { Chart } from "chart.js/auto";
-// const buttonClick = document.getElementById("calculate-results");
+const buttonClick = document.getElementById("calculate-results");
 const form = document.getElementById("investment-form");
-const clearButton = document.getElementById("clearButton");
-
-const finalMoneyDestributio = document.getElementById(
-  "finalmonoy-destribution",
+const finalMoneyDestribution = document.getElementById(
+  "final-money-destribution",
 );
-const progression = document.getElementById("pregression");
+const progression = document.getElementById("progression");
+
+let investmentFinaly = {};
+let pregressionChartReferece = {};
+
+function formatCurrency(valueNumber) {
+  return valueNumber.toFixed(2);
+}
 function renderProgression(e) {
   e.preventDefault();
-
   if (document.querySelector(".error")) {
     return;
   }
-
+  clearChart();
   //também existe outra forma de selecionr as tag
   // const startingAmount = Number(
   //   document.getElementById("starting-amount").value,
@@ -48,16 +52,22 @@ function renderProgression(e) {
   const finalMoneyreturn = returnsArray[returnsArray.length - 1];
   // console.log(finalMoneyreturn);
 
-  new Chart(finalMoneyDestributio, {
+  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+
+  investmentFinaly = new Chart(finalMoneyDestribution, {
     type: "doughnut",
     data: {
-      labels: ["Total Investido", "Rendimento", "Imposto"],
+      labels: ["total Investido", "Redimento", "Imposto"],
       datasets: [
         {
           data: [
-            finalMoneyreturn.investedAmount,
-            finalMoneyreturn.totalInterestReturns * (1 - taxRata / 12),
-            finalMoneyreturn.totalInterestReturns * (taxRata / 12),
+            formatCurrency(finalInvestmentObject.investedAmount),
+            formatCurrency(
+              finalInvestmentObject.totalInterestReturns * (1 - taxRata / 100),
+            ),
+            formatCurrency(
+              finalInvestmentObject.totalInterestReturns * (taxRata / 100),
+            ),
           ],
           backgroundColor: [
             "rgb(255, 99, 132)",
@@ -69,6 +79,51 @@ function renderProgression(e) {
       ],
     },
   });
+
+  pregressionChartReferece = new Chart(progression, {
+    type: "bar",
+    data: {
+      labels: returnsArray.map((investmentObject) => investmentObject.month),
+      datasets: [
+        {
+          label: "total investido",
+          data: returnsArray.map(
+            (investmentObject) => investmentObject.investedAmount,
+          ),
+          backgroundColor: "rgb(255, 99, 132)",
+        },
+        {
+          label: "total retorno",
+          data: returnsArray.map(
+            (investmentObject) => investmentObject.interestReturns,
+          ),
+          backgroundColor: "rgb(255, 205, 86)",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+        },
+        y: {
+          stacked: true,
+        },
+      },
+    },
+  });
+}
+
+function isObject(objt) {
+  return Object.keys(objt).length === 0;
+}
+
+function clearChart() {
+  if (!isObject(pregressionChartReferece) && !isObject(investmentFinaly)) {
+    pregressionChartReferece.destroy();
+    investmentFinaly.destroy();
+  }
 }
 
 function clearInput() {
@@ -79,6 +134,7 @@ function clearInput() {
   form["return-rata"].value = "";
   form["evolution-period"].value = "";
   form["tax-rata"].value = "";
+  clearChart();
 
   const errorInputContainers = document.querySelectorAll(".error");
 
@@ -98,7 +154,7 @@ function validarInput(e) {
 
   if (
     (!parentElement.classList.contains("error") && isNaN(validarInput)) ||
-    Number(validarInput <= 0)
+    Number(validarInput) <= 0
   ) {
     const errorInput = document.createElement("p");
     errorInput.classList.add("text-red-500");
@@ -107,7 +163,7 @@ function validarInput(e) {
     grandParentElement.appendChild(errorInput);
   } else if (
     (parentElement.classList.contains("error") && !isNaN(validarInput)) ||
-    Number(validarInput <= 0)
+    Number(validarInput) <= 0
   ) {
     parentElement.classList.remove("error");
     grandParentElement.querySelector("p").remove();
@@ -120,7 +176,7 @@ for (let formElement of form) {
   }
 }
 //  tenho outra forma alternada para evitar o vento de submit
-form.addEventListener("submit", renderProgression);
+// form.addEventListener("submit", renderProgression);
 
-// buttonClick.addEventListener("click", renderProgression);
+buttonClick.addEventListener("click", renderProgression);
 clearButton.addEventListener("click", clearInput);

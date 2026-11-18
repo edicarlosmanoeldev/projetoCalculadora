@@ -1,5 +1,6 @@
 import { generataReturnArray } from "./src/investimentGoals.js";
 import { Chart } from "chart.js/auto";
+import { createTable } from "./src/table.js";
 const buttonClick = document.getElementById("calculate-results");
 const form = document.getElementById("investment-form");
 const finalMoneyDestribution = document.getElementById(
@@ -8,16 +9,47 @@ const finalMoneyDestribution = document.getElementById(
 const progression = document.getElementById("progression");
 
 let investmentFinaly = {};
-let pregressionChartReferece = {};
 
+let pregressionChartReferece = {};
 function formatCurrency(valueNumber) {
-  return valueNumber.toFixed(2);
+  return valueNumber.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 }
+const columnsArray = [
+  {
+    columnLabel: "Mes",
+    accessor: "month",
+  },
+  {
+    columnLabel: "Total Investido",
+    accessor: "investedAmount",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "rendimento mensal",
+    accessor: "interestReturns",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "rendimento total",
+    accessor: "totalInterestReturns",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "quantidade total",
+    accessor: "totalAmount",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+];
+
 function renderProgression(e) {
   e.preventDefault();
   if (document.querySelector(".error")) {
     return;
   }
+
   clearChart();
   //também existe outra forma de selecionr as tag
   // const startingAmount = Number(
@@ -49,70 +81,72 @@ function renderProgression(e) {
     returnRata,
     returnRataPeriod,
   );
-  const finalMoneyreturn = returnsArray[returnsArray.length - 1];
+  // const finalMoneyreturn = returnsArray[returnsArray.length - 1];
   // console.log(finalMoneyreturn);
 
-  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+  // const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 
-  investmentFinaly = new Chart(finalMoneyDestribution, {
-    type: "doughnut",
-    data: {
-      labels: ["total Investido", "Redimento", "Imposto"],
-      datasets: [
-        {
-          data: [
-            formatCurrency(finalInvestmentObject.investedAmount),
-            formatCurrency(
-              finalInvestmentObject.totalInterestReturns * (1 - taxRata / 100),
-            ),
-            formatCurrency(
-              finalInvestmentObject.totalInterestReturns * (taxRata / 100),
-            ),
-          ],
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-          ],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  });
+  // investmentFinaly = new Chart(finalMoneyDestribution, {
+  //   type: "doughnut",
+  //   data: {
+  //     labels: ["total Investido", "Redimento", "Imposto"],
+  //     datasets: [
+  //       {
+  //         data: [
+  //           formatCurrency(finalInvestmentObject.investedAmount),
+  //           formatCurrency(
+  //             finalInvestmentObject.totalInterestReturns * (1 - taxRata / 100),
+  //           ),
+  //           formatCurrency(
+  //             finalInvestmentObject.totalInterestReturns * (taxRata / 100),
+  //           ),
+  //         ],
+  //         backgroundColor: [
+  //           "rgb(255, 99, 132)",
+  //           "rgb(54, 162, 235)",
+  //           "rgb(255, 205, 86)",
+  //         ],
+  //         hoverOffset: 4,
+  //       },
+  //     ],
+  //   },
+  // });
 
-  pregressionChartReferece = new Chart(progression, {
-    type: "bar",
-    data: {
-      labels: returnsArray.map((investmentObject) => investmentObject.month),
-      datasets: [
-        {
-          label: "total investido",
-          data: returnsArray.map(
-            (investmentObject) => investmentObject.investedAmount,
-          ),
-          backgroundColor: "rgb(255, 99, 132)",
-        },
-        {
-          label: "total retorno",
-          data: returnsArray.map(
-            (investmentObject) => investmentObject.interestReturns,
-          ),
-          backgroundColor: "rgb(255, 205, 86)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          stacked: true,
-        },
-        y: {
-          stacked: true,
-        },
-      },
-    },
-  });
+  // pregressionChartReferece = new Chart(progression, {
+  //   type: "bar",
+  //   data: {
+  //     labels: returnsArray.map((investmentObject) => investmentObject.month),
+  //     datasets: [
+  //       {
+  //         label: "total investido",
+  //         data: returnsArray.map(
+  //           (investmentObject) => investmentObject.investedAmount,
+  //         ),
+  //         backgroundColor: "rgb(255, 99, 132)",
+  //       },
+  //       {
+  //         label: "total retorno",
+  //         data: returnsArray.map(
+  //           (investmentObject) => investmentObject.interestReturns,
+  //         ),
+  //         backgroundColor: "rgb(255, 205, 86)",
+  //       },
+  //     ],
+  //   },
+  //   options: {
+  //     responsive: true,
+  //     scales: {
+  //       x: {
+  //         stacked: true,
+  //       },
+  //       y: {
+  //         stacked: true,
+  //       },
+  //     },
+  //   },
+  // });
+
+  createTable(columnsArray, returnsArray, "results-table");
 }
 
 function isObject(objt) {
@@ -176,7 +210,6 @@ for (let formElement of form) {
   }
 }
 //  tenho outra forma alternada para evitar o vento de submit
-// form.addEventListener("submit", renderProgression);
-
-buttonClick.addEventListener("click", renderProgression);
+form.addEventListener("submit", renderProgression);
+// buttonClick.addEventListener("click", renderProgression);
 clearButton.addEventListener("click", clearInput);

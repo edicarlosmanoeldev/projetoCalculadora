@@ -145,32 +145,44 @@
       </div>
     </aside>
 
-    <main class="row-span-2 col-span-2">
-      <!-- <section id="charts-containers" class="h-full">
-        <div class="h-[36%] flex flex-col items-center pb-10">
-          <p class="text-lg font-bold">parte final</p>
-          <canvas id="final-money-destribution"> </canvas>
-        </div>
-        <div class="h-[50%] flex flex-col items-center">
-          <p class="text-lg font-bold">progressão</p>
-          <canvas id="progression"> </canvas>
-        </div>
-      </section> -->
-      <section id="table-container" class="h-full">
-        <p class="text-center font-bold text-lg">Resultados Mensais</p>
-        <table class="border border-separate w-full max-h-full">
-          <thead>
-            <th>mês</th>
-            <th>Investimentos Iniciais</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-center">0</td>
-              <td class="text-center">500</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+    <main class="row-span-2 col-span-2 relative">
+      <button
+        id="slide-arrow-previous"
+        class="text-5xl absolute top-0 bottom-0 left-0 cursor-pointer bg-slate-200 opacity-50 hover:opacity-100 focus:opacity-100 w-6"
+      >
+        &#8249;
+      </button>
+      <button
+        id="slide-arrow-next"
+        class="text-5xl absolute top-0 bottom-0 right-0 cursor-pointer bg-slate-200 opacity-50 hover:opacity-100 focus:opacity-100 w-6"
+      >
+        &#8250;
+      </button>
+      <div
+        id="caroulsel"
+        class="h-full w-full flex overflow-x-auto scroll-smooth"
+      >
+        <section id="charts-containers" class="h-full basis-full shrink-0">
+          <div class="h-[36%] flex flex-col items-center pb-10">
+            <p class="text-lg font-bold">parte final</p>
+            <canvas id="final-money-destribution"> </canvas>
+          </div>
+          <div class="h-[50%] flex flex-col items-center">
+            <p class="text-lg font-bold">progressão</p>
+            <canvas id="progression"> </canvas>
+          </div>
+        </section>
+        <section
+          id="table-container"
+          class="h-full basis-full shrink-0 overflow-y-auto"
+        >
+          <p class="text-center font-bold text-lg">Resultados Mensais</p>
+          <table
+            id="results-table"
+            class="w-full max-h-full border-separate border"
+          ></table>
+        </section>
+      </div>
     </main>
     <script type="module" src="main.js"></script>
   </body>

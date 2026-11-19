@@ -32,7 +32,7 @@ export function generataReturnArray(
     interestReturns: 0,
     totalInterestReturns: 0,
     month: 0,
-    totalAmount: 0,
+    totalAmount: startingAmount,
   };
 
   const returnArray = [referenceInvestmentObject];

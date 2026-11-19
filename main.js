@@ -5,14 +5,44 @@ const finalMoneyDestribution = document.getElementById(
   "final-money-destribution",
 );
 const progression = document.getElementById("progression");
+import { Chart } from "chart.js/auto";
+import { createTable } from "./src/table.js";
 
 let investmentFinaly = {};
 let pregressionChartReferece = {};
-
-import { Chart } from "chart.js/auto";
-function formatCurrency(valueNumber) {
+const columnArray = [
+  { columnLabel: "Mês", accessor: "month" },
+  {
+    columnLabel: "total Investido",
+    accessor: "investedAmount",
+    format: (numberInfo) => formatCurrencyTable(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento mensal",
+    accessor: "interestReturns",
+    format: (numberInfo) => formatCurrencyTable(numberInfo),
+  },
+  {
+    columnLabel: "redimento Investido",
+    accessor: "totalInterestReturns",
+    format: (numberInfo) => formatCurrencyTable(numberInfo),
+  },
+  {
+    columnLabel: "quantidade total",
+    accessor: "totalAmount",
+    format: (numberInfo) => formatCurrencyTable(numberInfo),
+  },
+];
+function formatCurrencyTable(valueNumber) {
+  return valueNumber.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
+function formatCurrencyChart(valueNumber) {
   return valueNumber.toFixed(2);
 }
+
 function renderProgression(e) {
   e.preventDefault();
   if (document.querySelector(".error")) {
@@ -59,11 +89,11 @@ function renderProgression(e) {
       datasets: [
         {
           data: [
-            formatCurrency(finalInvestmentObject.investedAmount),
-            formatCurrency(
+            formatCurrencyChart(finalInvestmentObject.investedAmount),
+            formatCurrencyChart(
               finalInvestmentObject.totalInterestReturns * (1 - taxRata / 100),
             ),
-            formatCurrency(
+            formatCurrencyChart(
               finalInvestmentObject.totalInterestReturns * (taxRata / 100),
             ),
           ],
@@ -111,6 +141,7 @@ function renderProgression(e) {
       },
     },
   });
+  createTable(columnArray, returnsArray, "results-table");
 }
 
 function isObject(objt) {
@@ -173,8 +204,19 @@ for (let formElement of form) {
     formElement.addEventListener("blur", validarInput);
   }
 }
-//  tenho outra forma alternada para evitar o vento de submit
-// form.addEventListener("submit", renderProgression);
 
+const mainChart = document.querySelector("main");
+const carousel = document.getElementById("caroulsel");
+const buttonLeft = document.getElementById("slide-arrow-next");
+const buttonRight = document.getElementById("slide-arrow-previous");
+
+buttonLeft.addEventListener("click", () => {
+  carousel.scrollLeft += mainChart.clientWidth;
+});
+buttonRight.addEventListener("click", () => {
+  carousel.scrollLeft -= mainChart.clientWidth;
+});
+//  tenho outra forma alternada para evitar o vento de submit
+form.addEventListener("submit", renderProgression);
 // buttonClick.addEventListener("click", renderProgression);
 clearButton.addEventListener("click", clearInput);

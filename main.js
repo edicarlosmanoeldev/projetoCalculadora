@@ -1,5 +1,7 @@
 import { generataReturnArray } from "./src/investimentGoals.js";
-// const buttonClick = document.getElementById("calculate-results");
+import { Chart } from "chart.js/auto";
+import { createTable } from "./src/table.js";
+const buttonClick = document.getElementById("calculate-results");
 const form = document.getElementById("investment-form");
 const finalMoneyDestribution = document.getElementById(
   "final-money-destribution",
@@ -48,6 +50,7 @@ function renderProgression(e) {
   if (document.querySelector(".error")) {
     return;
   }
+
   clearChart();
   //também existe outra forma de selecionr as tag
   // const startingAmount = Number(
@@ -79,6 +82,8 @@ function renderProgression(e) {
     returnRata,
     returnRataPeriod,
   );
+  // const finalMoneyreturn = returnsArray[returnsArray.length - 1];
+  // console.log(finalMoneyreturn);
 
   const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 
